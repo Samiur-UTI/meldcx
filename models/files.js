@@ -20,45 +20,45 @@ const Files =  function (sequelize, DataTypes) {
                     key: 'ip'
                 }
             },
-            fileName: {
+            filename: {
                 type: DataTypes.STRING,
                 validate: {
                     notEmpty: true
                 }
             },
-            filePath: {
+            filepath: {
                 type: DataTypes.STRING,
                 validate: {
                     notEmpty: true
                 }
             },
-            fileSize: {
+            filesize: {
                 type: DataTypes.INTEGER,
                 validate: {
                     notEmpty: true
                 }
             },
-            publicKey:{
+            publickey:{
                 type: DataTypes.STRING,
                 validate: {
                     notEmpty: true
                 }
             },
-            privateKey:{
+            privatekey:{
                 type: DataTypes.STRING,
                 validate: {
                     notEmpty: true
                 }
             },
-            createdAt: {
-                type: DataTypes.DATETIME,
+            createdat: {
+                type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW,
                 validate: {
                     notEmpty: true
                 }
             },
-            updatedAt: {
-                type: DataTypes.DATETIME,
+            updatedat: {
+                type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW,
                 validate: {
                     notEmpty: true
@@ -66,7 +66,7 @@ const Files =  function (sequelize, DataTypes) {
             }
         },
         {
-            tableName: 'file_details',
+            tableName: 'files',
             freezeTableName: true,
             timestamps: false,
             underscored: true
