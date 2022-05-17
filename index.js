@@ -9,19 +9,24 @@ const limitChecker = require('./utils/middleware/limitChecker');
 const validate = require('./utils/middleware/validation');
 const apiServer = require('./api/index');
 const multer = require('multer');
+const cron = require('node-cron');
+const cronJob = require('./cron/cron');
+
+// Schedule tasks to run every day at 1 AM
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+cron.schedule("0 1 * * *", cronJob);
 
 // This is the route controller layer, it is responsible for handling all the routes
 // Also its is responsible for validating the request body, with the daily upload-download limit and sending the response
 
 //Apply middleware on upload and download routes
 
-router.post('/',multer().array('files'), limitChecker, apiServer.createFile); 
+router.post('/', multer().array('files'), limitChecker, apiServer.createFile);
 
-router.get('/:publicKey',validate, limitChecker, apiServer.getFile);
+router.get('/:publicKey', validate, limitChecker, apiServer.getFile);
 
 router.delete('/:privateKey', validate, apiServer.deleteFile);
 
