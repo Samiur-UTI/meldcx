@@ -26,8 +26,8 @@ module.exports = async function limitChecker(req, res, next) {
                 const fileSize = req.files.reduce((acc, file) => {
                     return acc + file.size
                 }, 0)
-                const limit = (process.env.FILE_UPLOAD_LIMIT * 1024 * 1024) - uploaded
-                if (fileSize > limit) {
+                const limit = (process.env.FILE_UPLOAD_LIMIT * 1024) - uploaded
+                if ((fileSize / 1024) > limit) {
                     return res.status(400).json({
                         message: 'File upload limit reached'
                     })
@@ -36,7 +36,7 @@ module.exports = async function limitChecker(req, res, next) {
             //Check if the ip address has reached the file download limit.
             else if (req.method === 'GET') {
                 const {downloaded} = dbCheck
-                const limit = (process.env.FILE_DOWNLOAD_LIMIT * 1024 * 1024) - downloaded
+                const limit = (process.env.FILE_DOWNLOAD_LIMIT * 1024 ) - downloaded
                 if (limit < 0) {
                     return res.status(400).json({
                         message: 'File download limit reached'

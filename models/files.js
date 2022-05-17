@@ -39,13 +39,13 @@ const Files =  function (sequelize, DataTypes) {
                 }
             },
             publickey:{
-                type: DataTypes.BLOB,
+                type: DataTypes.TEXT,
                 validate: {
                     notEmpty: true
                 }
             },
             privatekey:{
-                type: DataTypes.BLOB,
+                type: DataTypes.TEXT,
                 validate: {
                     notEmpty: true
                 }

@@ -6,6 +6,7 @@ const cors = require('cors');
 const router = express.Router();
 const port = process.env.PORT || 5000;
 const limitChecker = require('./utils/middleware/limitChecker');
+const validate = require('./utils/middleware/validation');
 const apiServer = require('./api/index');
 const multer = require('multer');
 app.use(cors());
@@ -20,9 +21,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 router.post('/',multer().array('files'), limitChecker, apiServer.createFile); 
 
-router.get('/:publicKey', limitChecker, apiServer.getFile);
+router.get('/:publicKey',validate, limitChecker, apiServer.getFile);
 
-router.delete('/:privateKey', apiServer.deleteFile);
+router.delete('/:privateKey', validate, apiServer.deleteFile);
 
 app.use('/file', router);
 app.listen(port, () => console.log(`Listening on port ${port}`));

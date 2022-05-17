@@ -1,17 +1,18 @@
 const provider = require('../provider/index');
-const keyPair = require('keypair')
+const keygen = require('keygen');
 const db = require('../models/index');
 module.exports = async function createFile(req, res) {
     //API controller to handle the incoming file and sending it to the provider, 
     // also saving the file details in db and then returning the response
     try {
-        const response = await provider.uploadFile(req.files);
-        if (response.status === 'success') {
-            const files = await Promise.all(response.fileDetails.map(async (file) => {
+        const result = await provider.uploadFile(req.files);
+        if (result.status === 'success') {
+            const files = await Promise.all(result.fileDetails.map(async (file) => {
                     return {
                         ...file,
-                        publickey: await keyPair().public,
-                        privatekey: await keyPair().private,
+                        filesize: Math.ceil(file.filesize),
+                        publickey: await keygen.url(keygen.small),
+                        privatekey: await keygen.url(keygen.medium),
                         ip: req.ip
                     }
                 })

@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 module.exports = async function uploadFile(file) {
-    console.log(file)
     let response = {
         status: '',
         message: '',

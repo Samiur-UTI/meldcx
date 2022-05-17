@@ -1,11 +1,13 @@
-module.exports = async function downloadFile(req, res) {
-    const { fileId } = req.params;
-    const file = await File.findById(fileId);
-    if (!file) {
-        return res.status(404).json({
-            message: 'File not found'
-        });
-    }
-    const filePath = path.join(__dirname, '../../', file.path);
-    res.download(filePath, file.name);
+const fs = require('fs');
+module.exports = async function downloadFile(path, res) {
+    return new Promise((resolve, reject) => {
+        const readStream = fs.createReadStream(path)
+        readStream.on('error', (err) => {
+            reject(err)
+        })
+        readStream.on('open', () => {
+            readStream.pipe(res)
+            resolve(true)
+        })
+    })
 }
