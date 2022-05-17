@@ -1,16 +1,14 @@
-const fs = require('node:fs/promises');
-
-module.exports = async function removeFile(req, res) {
-    const deleteFile = async (filePath) => {
+const fsPromises = require('node:fs/promises');
+const path = require('path')
+module.exports = async function removeFile(filePath) {
+    return new Promise((resolve, reject) => {
         try {
-            await fsPromises.unlink(filePath);
+            fsPromises.unlink(filePath);
             console.log('Successfully removed file!');
-        } catch (err) {
+            resolve(true);
+          } catch (err) {
             console.log(err);
-        }
-    };
-
-    // Try it
-    const filePath = "./kindacode.com";
-    deleteFile(filePath);
+            reject(false);
+          }
+    })
 }
