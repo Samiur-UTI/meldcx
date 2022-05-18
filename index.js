@@ -22,7 +22,7 @@ cron.schedule("0 1 * * *", cronJob);
 // This is the route controller layer, it is responsible for handling all the routes
 // Also its is responsible for validating the request body, with the daily upload-download limit and sending the response
 
-//Apply middleware on upload and download routes
+//Apply validation middleware on upload and delete routes and limitchecker middleware on upload and download routes
 
 router.post('/', multer().array('files'), limitChecker, apiServer.createFile);
 
