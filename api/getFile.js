@@ -14,7 +14,7 @@ module.exports = async function getFile(req, res) {
                 message: 'File not found'
             });
         }
-        const response = await provider.downloadFile(checkDB.filepath, res);
+        const response = await provider.downloadFile(checkDB, res);
         if (!response) {
             return res.status(500).json({
                 message: 'Internal server error'

@@ -9,7 +9,7 @@ module.exports = async function deleteFile(req, res) {
             }
         })
         if (file) {
-            const result = await provider.removeFile(file.filepath)
+            const result = await provider.removeFile(file)
             console.log(result)
             if(!result) {
                 return res.status(500).json({
